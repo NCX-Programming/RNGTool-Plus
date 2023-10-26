@@ -1,4 +1,4 @@
-/*  RNGTool Plus "RNGTool_Plus.swift"
+/*  RNGTool Plus "NumberMode.swift"
 MIT License
 
 Copyright (c) 2023 NCX Programming
@@ -24,45 +24,36 @@ SOFTWARE */
 import SwiftCrossUI
 import GtkBackend
 
-enum SelectedMode {
-    case numbers
+class NumberModeState: Observable {
+    @Observed var minNum = 0
+    @Observed var maxNum = 100
+    @Observed var randomNumber = 0
+    @Observed var minNumberInput = ""
+    @Observed var maxNumberInput = ""
 }
 
-class RNGToolState: Observable {
-    @Observed var selectedMode: SelectedMode?
-}
-
-@main
-struct RNGTool_Plus_App: App {
-    typealias Backend = GtkBackend
-
-    let identifier = "com.NCX-Programming.RNGTool-Plus"
-
-    let state = RNGToolState()
-
-    let windowProperties = WindowProperties(
-        title: "RNGTool Plus",
-        defaultSize: .init(600, 350)
-    )
+struct NumberMode: View {
 
     var body: some ViewContent {
-        NavigationSplitView {
-            VStack {
-                Button("Numbers") { state.selectedMode = .numbers }
-                Spacer()
-                Text("v1.0.0")
-            }.padding(10)
-        } detail: {
-            VStack {
-                switch state.selectedMode {
-                    case .numbers:
-                        NumberMode()
-                            .padding(.bottom, 10)
-                    case nil:
-                        Text("Select a mode to start generating")
-                            .padding(.bottom, 10)
+
+        let state = NumberModeState()
+
+        VStack {
+            Text("Number: \(state.randomNumber)")
+            Button("Generate") {
+                state.minNum = Int(state.minNumberInput) ?? 0
+                state.maxNum = Int(state.maxNumberInput) ?? 100
+                if (state.maxNum <= state.minNum) {
+                    state.minNumberInput = ""
+                    state.minNum = 0
                 }
-            }.padding(10)
+                state.randomNumber = Int.random(in: Int(state.minNum)...Int(state.maxNum))
+                print(state.randomNumber)
+            }
+            Text("Minimum Number (Default: 0)")
+            TextField("Enter a number", state.$minNumberInput)
+            Text("Maximum Number (Default: 100)")
+            TextField("Enter a number", state.$maxNumberInput)
         }
     }
 }
