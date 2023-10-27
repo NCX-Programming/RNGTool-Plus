@@ -34,26 +34,36 @@ class NumberModeState: Observable {
 
 struct NumberMode: View {
 
+    var state = NumberModeState()
+
     var body: some ViewContent {
-
-        let state = NumberModeState()
-
         VStack {
             Text("Number: \(state.randomNumber)")
             Button("Generate") {
-                state.minNum = Int(state.minNumberInput) ?? 0
                 state.maxNum = Int(state.maxNumberInput) ?? 100
+                state.minNum = Int(state.minNumberInput) ?? 0
                 if (state.maxNum <= state.minNum) {
                     state.minNumberInput = ""
                     state.minNum = 0
                 }
                 state.randomNumber = Int.random(in: Int(state.minNum)...Int(state.maxNum))
-                print(state.randomNumber)
             }
-            Text("Minimum Number (Default: 0)")
-            TextField("Enter a number", state.$minNumberInput)
-            Text("Maximum Number (Default: 100)")
+            Text("Maximum Number")
+            Text("Default: 100, Current: " + state.maxNumberInput)
             TextField("Enter a number", state.$maxNumberInput)
+            Text("Minimum Number")
+            Text("Default: 0, Current: " + state.minNumberInput)
+            TextField("Enter a number", state.$minNumberInput)
+            HStack {
+                Button("Reset") {
+                    state.maxNum = 100
+                    state.minNum = 0
+                    state.maxNumberInput = ""
+                    state.minNumberInput = ""
+                    state.randomNumber = 0
+                }
+                Spacer()
+            }
         }
     }
 }

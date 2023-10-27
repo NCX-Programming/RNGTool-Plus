@@ -38,7 +38,7 @@ struct RNGTool_Plus_App: App {
 
     let identifier = "com.NCX-Programming.RNGTool-Plus"
 
-    let state = RNGToolState()
+    var state = RNGToolState()
 
     let windowProperties = WindowProperties(
         title: "RNGTool Plus",
