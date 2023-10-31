@@ -23,7 +23,13 @@ let package = Package(
                 .process("Assets/Dice/Light/Die3.svg"),
                 .process("Assets/Dice/Light/Die4.svg"),
                 .process("Assets/Dice/Light/Die5.svg"),
-                .process("Assets/Dice/Light/Die6.svg")
+                .process("Assets/Dice/Light/Die6.svg"),
+                .process("Assets/Dice/Dark/Die1-dark.svg"),
+                .process("Assets/Dice/Dark/Die2-dark.svg"),
+                .process("Assets/Dice/Dark/Die3-dark.svg"),
+                .process("Assets/Dice/Dark/Die4-dark.svg"),
+                .process("Assets/Dice/Dark/Die5-dark.svg"),
+                .process("Assets/Dice/Dark/Die6-dark.svg")
             ]
         ),
         .testTarget(

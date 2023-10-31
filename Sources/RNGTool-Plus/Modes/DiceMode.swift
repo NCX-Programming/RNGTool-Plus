@@ -27,7 +27,7 @@ import GtkBackend
 
 class DiceModeState: Observable {
     @Observed var randomNumbers: [Int] = []
-    @Observed var diceImages: [String] = ["Dice1.svg", "Dice2.svg", "Dice3.svg", "Dice4.svg", "Dice5.svg", "Dice6.svg"]
+    @Observed var diceImages: [String] = ["Die1.svg", "Die2.svg", "Die3.svg", "Die4.svg", "Die5.svg", "Die6.svg"]
 }
 
 struct DiceMode: View {
