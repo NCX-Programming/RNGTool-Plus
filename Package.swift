@@ -16,6 +16,14 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftCrossUI", package: "swift-cross-ui"),
                 .product(name: "GtkBackend", package: "swift-cross-ui")
+            ],
+            resources: [
+                .process("Assets/Dice/Light/Die1.svg"),
+                .process("Assets/Dice/Light/Die2.svg"),
+                .process("Assets/Dice/Light/Die3.svg"),
+                .process("Assets/Dice/Light/Die4.svg"),
+                .process("Assets/Dice/Light/Die5.svg"),
+                .process("Assets/Dice/Light/Die6.svg")
             ]
         ),
         .testTarget(

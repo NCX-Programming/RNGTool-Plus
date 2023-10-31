@@ -26,6 +26,7 @@ import GtkBackend
 
 enum SelectedMode {
     case numbers
+    case dice
 }
 
 class RNGToolState: Observable {
@@ -42,13 +43,14 @@ struct RNGTool_Plus_App: App {
 
     let windowProperties = WindowProperties(
         title: "RNGTool Plus",
-        defaultSize: .init(600, 350)
+        defaultSize: .init(600, 370)
     )
 
     var body: some ViewContent {
         NavigationSplitView {
             VStack {
                 Button("Numbers") { state.selectedMode = .numbers }
+                Button("Dice") { state.selectedMode = .dice }
                 Spacer()
                 Text("v1.0.0")
             }.padding(10)
@@ -57,6 +59,9 @@ struct RNGTool_Plus_App: App {
                 switch state.selectedMode {
                     case .numbers:
                         NumberMode()
+                            .padding(.bottom, 10)
+                    case .dice:
+                        DiceMode()
                             .padding(.bottom, 10)
                     case nil:
                         Text("Select a mode to start generating")
