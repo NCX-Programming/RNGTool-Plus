@@ -36,7 +36,7 @@ struct NumberMode: View {
 
     var state = NumberModeState()
 
-    var body: some ViewContent {
+    var body: some View {
         VStack {
             Text("Number: \(state.randomNumber)")
             Button("Generate") {

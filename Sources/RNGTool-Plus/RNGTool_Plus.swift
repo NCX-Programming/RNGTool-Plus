@@ -46,7 +46,7 @@ struct RNGTool_Plus_App: App {
         defaultSize: .init(600, 370)
     )
 
-    var body: some ViewContent {
+    var body: some View {
         NavigationSplitView {
             VStack {
                 Button("Numbers") { state.selectedMode = .numbers }

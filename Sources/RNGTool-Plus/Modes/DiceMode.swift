@@ -26,36 +26,53 @@ import SwiftCrossUI
 import GtkBackend
 
 class DiceModeState: Observable {
+    @Observed var numOfDice: Int? = 1
     @Observed var randomNumbers: [Int] = []
-    @Observed var diceImages: [String] = ["Die1.svg", "Die2.svg", "Die3.svg", "Die4.svg", "Die5.svg", "Die6.svg"]
+    @Observed var randomNumberStr: String = "Click Roll to begin"
+    @Observed var diceImages: [String] = ["Die1.svg", "Die1.svg", "Die1.svg", "Die1.svg", "Die1.svg", "Die1.svg"]
 }
 
 struct DiceMode: View {
 
     var state = DiceModeState()
 
-    var body: some ViewContent {
+    let diceLight: [String] = ["Die1.svg", "Die2.svg", "Die3.svg", "Die4.svg", "Die5.svg", "Die6.svg"]
+    let diceDark: [String] = ["Die1-dark.svg", "Die2-dark.svg", "Die3-dark.svg", "Die4-dark.svg", "Die5-dark.svg", "Die6-dark.svg"]
+
+    var body: some View {
         VStack() {
             HStack() {
-                Image(Bundle.module.bundleURL.appendingPathComponent(state.diceImages[0]).path)
-                Image(Bundle.module.bundleURL.appendingPathComponent(state.diceImages[1]).path)
-                Image(Bundle.module.bundleURL.appendingPathComponent(state.diceImages[2]).path)
-                Image(Bundle.module.bundleURL.appendingPathComponent(state.diceImages[3]).path)
-                Image(Bundle.module.bundleURL.appendingPathComponent(state.diceImages[4]).path)
-                Image(Bundle.module.bundleURL.appendingPathComponent(state.diceImages[5]).path)
+                ForEach(0..<state.numOfDice!) { index in
+                    Image(Bundle.module.bundleURL.appendingPathComponent(state.diceImages[index]).path)
+                        .frame(minWidth: 65, minHeight: 65)
+                }
             }
-            Text("\(state.randomNumbers)")
+            Text(state.randomNumberStr)
+            HStack() {
+                Text("Number of dice:")
+                Picker(of: [1,2,3,4,5,6], selection: state.$numOfDice)
+                Spacer()
+            }
             HStack() {
                 Button("Roll") {
-                    print("Rolling!")
                     state.randomNumbers.removeAll()
-                    state.diceImages.removeAll()
-                    for _ in 1...6 {
+                    for _ in 1...state.numOfDice! {
                         state.randomNumbers.append(Int.random(in: 1...6))
                     }
-                    for n in 1...6 {
-                        state.diceImages.append("Die\(state.randomNumbers[n-1]).svg")
+                    for n in 0..<state.numOfDice! {
+                        state.diceImages[n] = diceLight[state.randomNumbers[n]-1]
                     }
+                    state.randomNumberStr = "Your random number(s): \(state.randomNumbers)"
+                    state.randomNumberStr = state.randomNumberStr.replacingOccurrences(of: "[", with: "")
+                    state.randomNumberStr = state.randomNumberStr.replacingOccurrences(of: "]", with: "")
+                }
+                Button("Reset") {
+                    state.numOfDice = 1
+                    state.randomNumbers.removeAll()
+                    for n in 0..<6 {
+                        state.diceImages[n] = diceLight[0]
+                    }
+                    state.randomNumberStr = "Click Roll to begin"
                 }
                 Spacer()
             }
