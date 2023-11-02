@@ -29,7 +29,20 @@ let package = Package(
                 .process("Assets/Dice/Dark/Die3-dark.svg"),
                 .process("Assets/Dice/Dark/Die4-dark.svg"),
                 .process("Assets/Dice/Dark/Die5-dark.svg"),
-                .process("Assets/Dice/Dark/Die6-dark.svg")
+                .process("Assets/Dice/Dark/Die6-dark.svg"),
+                .process("Assets/Cards/Card2.svg"),
+                .process("Assets/Cards/Card3.svg"),
+                .process("Assets/Cards/Card4.svg"),
+                .process("Assets/Cards/Card5.svg"),
+                .process("Assets/Cards/Card6.svg"),
+                .process("Assets/Cards/Card7.svg"),
+                .process("Assets/Cards/Card8.svg"),
+                .process("Assets/Cards/Card9.svg"),
+                .process("Assets/Cards/Card10.svg"),
+                .process("Assets/Cards/CardAce.svg"),
+                .process("Assets/Cards/CardJack.svg"),
+                .process("Assets/Cards/CardQueen.svg"),
+                .process("Assets/Cards/CardKing.svg"),
             ]
         ),
         .testTarget(
