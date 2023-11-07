@@ -28,6 +28,7 @@ enum SelectedMode {
     case numbers
     case dice
     case cards
+    case marbles
 }
 
 class RNGToolState: Observable {
@@ -53,6 +54,7 @@ struct RNGTool_Plus_App: App {
                 Button("Numbers") { state.selectedMode = .numbers }
                 Button("Dice") { state.selectedMode = .dice }
                 Button("Cards") { state.selectedMode = .cards }
+                Button("Marbles") { state.selectedMode = .marbles }
                 Spacer()
                 Text("v1.0.0")
             }.padding(10)
@@ -67,6 +69,9 @@ struct RNGTool_Plus_App: App {
                             .padding(.bottom, 10)
                     case .cards:
                         CardMode()
+                            .padding(.bottom, 10)
+                    case .marbles:
+                        MarbleMode()
                             .padding(.bottom, 10)
                     case nil:
                         Text("Select a mode to start generating")
