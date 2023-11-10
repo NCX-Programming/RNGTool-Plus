@@ -31,6 +31,7 @@ class CardModeState: Observable {
     @Observed var randomNumberStr: String = "Click Draw to begin"
     @Observed var cardPoints: [Int] = []
     @Observed var cardImages: [String] = ["CardAce.svg", "CardAce.svg", "CardAce.svg", "CardAce.svg", "CardAce.svg", "CardAce.svg", "CardAce.svg"]
+    @Observed var showPointValues: Bool = false
 }
 
 struct CardMode: View {
@@ -47,12 +48,16 @@ struct CardMode: View {
                         .frame(minWidth: 65)
                 }
             }
-            Text(state.randomNumberStr)
+            if (state.showPointValues) {
+                Text(state.randomNumberStr)
+            }
             HStack() {
                 Text("Number of cards:")
                 Picker(of: [1,2,3,4,5,6,7], selection: state.$numOfCards)
                 Spacer()
             }
+            Toggle("Show point values", active: state.$showPointValues)
+                .toggleStyle(.switch)
             HStack() {
                 Button("Draw") {
                     state.randomNumbers.removeAll()
