@@ -43,41 +43,39 @@ struct RNGTool_Plus_App: App {
 
     var state = RNGToolState()
 
-    let windowProperties = WindowProperties(
-        title: "RNGTool Plus",
-        defaultSize: .init(640, 370)
-    )
-
-    var body: some View {
-        NavigationSplitView {
-            VStack {
-                Button("Numbers") { state.selectedMode = .numbers }
-                Button("Dice") { state.selectedMode = .dice }
-                Button("Cards") { state.selectedMode = .cards }
-                Button("Marbles") { state.selectedMode = .marbles }
-                Spacer()
-                Text("v1.0.0")
-            }.padding(10)
-        } detail: {
-            VStack {
-                switch state.selectedMode {
-                    case .numbers:
-                        NumberMode()
-                            .padding(.bottom, 10)
-                    case .dice:
-                        DiceMode()
-                            .padding(.bottom, 10)
-                    case .cards:
-                        CardMode()
-                            .padding(.bottom, 10)
-                    case .marbles:
-                        MarbleMode()
-                            .padding(.bottom, 10)
-                    case nil:
-                        Text("Select a mode to start generating")
-                            .padding(.bottom, 10)
-                }
-            }.padding(10)
+    var body: some Scene {
+        WindowGroup("RNGTool Plus") {
+            NavigationSplitView {
+                VStack {
+                    Button("Numbers") { state.selectedMode = .numbers }
+                    Button("Dice") { state.selectedMode = .dice }
+                    Button("Cards") { state.selectedMode = .cards }
+                    Button("Marbles") { state.selectedMode = .marbles }
+                    Spacer()
+                    Text("v1.0.0")
+                }.padding(10)
+            } detail: {
+                VStack {
+                    switch state.selectedMode {
+                        case .numbers:
+                            NumberMode()
+                                .padding(.bottom, 10)
+                        case .dice:
+                            DiceMode()
+                                .padding(.bottom, 10)
+                        case .cards:
+                            CardMode()
+                                .padding(.bottom, 10)
+                        case .marbles:
+                            MarbleMode()
+                                .padding(.bottom, 10)
+                        case nil:
+                            Text("Select a mode to start generating")
+                                .padding(.bottom, 10)
+                    }
+                }.padding(10)
+            }
         }
+        .defaultSize(width: 640, height: 370)
     }
 }
