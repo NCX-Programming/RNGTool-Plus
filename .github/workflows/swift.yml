@@ -1,0 +1,42 @@
+# This workflow will build a Swift project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+
+name: Swift
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-macos:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: |
+        brew update
+        brew install pkg-config gtk4 || echo "This step 'fails' every time but it's just a brew linking error and can be ignored."
+    - name: Build
+      run: swift build -v
+    #- name: Run tests
+      #run: swift test -v
+
+  build-linux:
+
+    runs-on: ubuntu-latest 
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y libgtk-4-dev clang
+    - name: Build
+      run: swift build -v
+    #- name: Run tests
+      #run: swift test -v
+      
